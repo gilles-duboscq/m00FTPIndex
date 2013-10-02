@@ -18,10 +18,6 @@ public class Inet4AddressRange extends InetAddressRange {
         this.reset();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.m00ware.ftpindex.InetAddressRange#reset()
-     */
     @Override
     public void reset() {
         current = this.base.getAddress();
@@ -31,10 +27,6 @@ public class Inet4AddressRange extends InetAddressRange {
         current[0] &= (byte) ((mask >> 24) & 0xff);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.util.Iterator#hasNext()
-     */
     @Override
     public boolean hasNext() {
         int test = current[3] & 0xff;
@@ -44,10 +36,6 @@ public class Inet4AddressRange extends InetAddressRange {
         return ((test + 1) & mask) == (test & mask);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.util.Iterator#next()
-     */
     @Override
     public InetAddress next() {
         if (!this.hasNext()) {

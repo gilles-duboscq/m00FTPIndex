@@ -91,12 +91,6 @@ public class RawFilesDB implements FilesDB, EmbeddedObjectsDB {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.m00ware.ftpindex.FilesDB#addChild(com.m00ware.ftpindex.Directory,
-     * com.m00ware.ftpindex.Node)
-     */
     @Override
     public void addChild(Directory parent, Node child) {
         ArrayList<Node> children = new ArrayList<Node>(1);
@@ -107,8 +101,7 @@ public class RawFilesDB implements FilesDB, EmbeddedObjectsDB {
     @Override
     public void addChildren(Directory parent, List<Node> children) {
         if (!(parent instanceof RawDirectory)) {
-            throw new IllegalArgumentException("Unknwon node type"); // convert
-                                                                     // it?
+            throw new IllegalArgumentException("Unknwon node type"); // convert it?
         }
         RawDirectory rawParent = (RawDirectory) parent;
         try {
@@ -208,10 +201,6 @@ public class RawFilesDB implements FilesDB, EmbeddedObjectsDB {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.m00ware.ftpindex.FilesDB#addFTP(com.m00ware.ftpindex.FTP)
-     */
     @Override
     public void addFTP(FTP ftp) {
         synchronized (ftps) {
@@ -243,10 +232,6 @@ public class RawFilesDB implements FilesDB, EmbeddedObjectsDB {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.m00ware.ftpindex.FilesDB#forceCommit()
-     */
     @Override
     public void forceCommit() {
         synchronized (raf) {
@@ -294,20 +279,11 @@ public class RawFilesDB implements FilesDB, EmbeddedObjectsDB {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.m00ware.ftpindex.FilesDB#getFTP(java.net.InetAddress, int)
-     */
     @Override
     public FTP getFTP(InetAddress addr, int port) {
         return this.getFTP(addr, port, true);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.m00ware.ftpindex.FilesDB#getFTP(java.net.InetAddress, int,
-     * boolean)
-     */
     @Override
     public FTP getFTP(InetAddress addr, int port, boolean create) {
         for (FTP ftp : ftps) {
@@ -345,19 +321,11 @@ public class RawFilesDB implements FilesDB, EmbeddedObjectsDB {
         return newFtp;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.m00ware.ftpindex.FilesDB#getFTPs()
-     */
     @Override
     public List<FTP> getFTPs() {
         return ftps;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.m00ware.ftpindex.FilesDB#init()
-     */
     @Override
     public void init() throws IOException {
         boolean doCreate = !dbFile.exists();
@@ -441,23 +409,11 @@ public class RawFilesDB implements FilesDB, EmbeddedObjectsDB {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.m00ware.ftpindex.FilesDB#registerEventListener(com.m00ware.ftpindex
-     * .DBEventListener)
-     */
     @Override
     public void registerEventListener(DBEventListener listener) {
         listeners.add(listener);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.m00ware.ftpindex.FilesDB#removeChild(com.m00ware.ftpindex.Directory,
-     * com.m00ware.ftpindex.Node)
-     */
     @Override
     public void removeChild(Directory parent, Node child) {
         ArrayList<Node> children = new ArrayList<Node>(1);
@@ -469,8 +425,7 @@ public class RawFilesDB implements FilesDB, EmbeddedObjectsDB {
     public void removeChildren(Directory parent, List<Node> children) {
         eventExecutor.execute(new ChildEventRunner(listeners, children, false));
         if (!(parent instanceof RawDirectory)) {
-            throw new IllegalArgumentException("Unknwon node type"); // convert
-                                                                     // it?
+            throw new IllegalArgumentException("Unknwon node type"); // convert it?
         }
         RawDirectory rawParent = (RawDirectory) parent;
         try {
@@ -510,21 +465,11 @@ public class RawFilesDB implements FilesDB, EmbeddedObjectsDB {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.m00ware.ftpindex.FilesDB#removeEventListener(com.m00ware.ftpindex
-     * .DBEventListener)
-     */
     @Override
     public void removeEventListener(DBEventListener listener) {
         listeners.remove(listener);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.m00ware.ftpindex.FilesDB#shutdown()
-     */
     @Override
     public void shutdown() {
         synchronized (vacantSpaces) {

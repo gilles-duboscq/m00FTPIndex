@@ -29,11 +29,6 @@ public class SearchHttpRequestHandler extends BaseHttpRequestHandler {
         index = new BasicSearchIndex(backEnd.getDb());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.m00ware.ftpindex.web.BaseHttpRequestHandler#doHandle(org.apache.http.HttpRequest, org.apache.http.HttpResponse,
-     * org.apache.http.protocol.HttpContext)
-     */
     @Override
     public void doHandle(HttpRequest request, HttpResponse response, HttpContext context) throws HttpException, IOException {
         if (!request.getRequestLine().getMethod().equals("GET")) {
