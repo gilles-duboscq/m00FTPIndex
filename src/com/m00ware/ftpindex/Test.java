@@ -8,10 +8,7 @@ import java.nio.charset.Charset;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import org.apache.lucene.queryParser.ParseException;
-
 import com.m00ware.ftpindex.indexer.*;
-import com.m00ware.ftpindex.raw.CrappyRawFilesDB;
 import com.m00ware.ftpindex.raw2.RawFilesDB2;
 import com.m00ware.ftpindex.scanner.*;
 import com.m00ware.ftpindex.search.*;
@@ -22,28 +19,6 @@ import com.m00ware.ftpindex.web.WebBackEnd;
  * 
  */
 public class Test {
-
-	/**
-	 * @param args
-	 * @throws IOException
-	 */
-	public static void main0(String[] args) throws IOException {
-
-		CrappyRawFilesDB db = new CrappyRawFilesDB(new File("blop.mdb"));
-		db.init();
-		dumpDB(db);
-		long t = System.currentTimeMillis();
-		System.out.println("Begin indexing...");
-		FTP ftp = db.getFTP(InetAddress.getByName("boya.rez-gif.supelec.fr"),
-				21);
-		IndexerRunnable it = new IndexerRunnable(ftp);
-		it.init();
-		it.run();
-		db.shutdown();
-		System.out.println("Explored FTP in "
-				+ (System.currentTimeMillis() - t) + "ms, total size="
-				+ ftp.getRoot().getSize() + "Bytes");
-	}
 
 	public static void main1(String[] args) throws IOException {
 		InetAddress addr = InetAddress.getByName("160.228.152.88");
@@ -65,45 +40,6 @@ public class Test {
 		for (String str : servers) {
 			System.out.println(str);
 		}
-	}
-
-	public static void main2(String[] args) throws IOException, ParseException {
-		CrappyRawFilesDB db = new CrappyRawFilesDB(new File("blop.mdb"));
-		db.init();
-		File idx = new File("testIndex");
-		if (idx.exists()) {
-			for (File f : idx.listFiles()) {
-				f.delete();
-			}
-			idx.delete();
-		}
-		LuceneSearchIndex lsi = new LuceneSearchIndex("testIndex", db);
-		lsi.indexDB();
-		String search = "Gossip";
-		long t = System.currentTimeMillis();
-		SearchResults results = lsi.search(search, 1, 30);
-		t = System.currentTimeMillis() - t;
-		System.out.println("LuceneSearchIndex : " + results.getTotalResults()
-				+ " results in " + t + "ms");
-		for (Node node : results.getNodes()) {
-			System.out.println(node.getFtp().getAddress().getHostName() + ":"
-					+ node.getFtp().getPort() + " -> " + node.getPath());
-		}
-		BasicSearchIndex bsi = new BasicSearchIndex(db);
-		t = System.currentTimeMillis();
-		results = bsi.search(search, 1, 30);
-		t = System.currentTimeMillis() - t;
-		System.out.println("BasicSearchIndex : " + results.getTotalResults()
-				+ " results in " + t + "ms");
-		for (Node node : results.getNodes()) {
-			System.out.println(node.getFtp().getAddress().getHostName() + ":"
-					+ node.getFtp().getPort() + " -> " + node.getPath());
-		}
-		t = System.currentTimeMillis();
-		results = bsi.search(search, 1, 30);
-		t = System.currentTimeMillis() - t;
-		System.out.println("BasicSearchIndex 2 (cached?): "
-				+ results.getTotalResults() + " results in " + t + "ms");
 	}
 
 	public static void main3(String[] args) {
@@ -169,35 +105,6 @@ public class Test {
 		System.out.println("SearchUtil.bytesContains : " + iter
 				+ " iterations took " + t + "ns : " + t / iter
 				+ "ns per iteration");
-	}
-
-	public static void main4(String[] args) throws FileNotFoundException,
-			UnknownHostException {
-		CrappyRawFilesDB db = new CrappyRawFilesDB(new File("blop.mdb"));
-		db.init();
-		InetAddress addr = InetAddress.getByName("duboscq.rez-gif.supelec.fr");
-		ScannerThread st = new ScannerThread(new Inet4AddressRange(
-				(Inet4Address) addr, 0xfffff800));
-		IndexerScheduler is = new IndexerScheduler(db);
-		final WebBackEnd wbe = new WebBackEnd(db, st, is, null, 80);
-		wbe.loadQuotes("quotes.txt");
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			@Override
-			public void run() {
-				wbe.shutdown();
-			}
-		});
-		is.scheduleEarlyIndexing();
-		st.start();
-		wbe.run();
-	}
-
-	public static void main5(String[] args) throws FileNotFoundException,
-			UnknownHostException {
-		CrappyRawFilesDB db = new CrappyRawFilesDB(new File("blop.mdb"));
-		db.init();
-		db.deepSizeUpdate();
-		db.shutdown();
 	}
 
 	public static void main6(String[] args) throws IOException {
@@ -358,29 +265,6 @@ public class Test {
 					+ node.getPath());
 		}
 		db.shutdown();
-	}
-
-	private static int getLineLength(String line) {
-		int len = 0;
-		int idx = line.indexOf('<');
-		while (idx >= 0) {
-			len += idx;
-			int idx2 = line.indexOf('"', idx + 1);
-			int idx3 = line.indexOf('>', idx + 1);
-			while (idx2 >= 0 && idx2 < idx3) {
-				int idx4 = line.indexOf('"', idx2 + 1);
-				idx2 = line.indexOf('"', idx4 + 1);
-				idx3 = line.indexOf('>', idx4 + 1);
-			}
-			if (idx3 < 0) {
-				// TODO bark!
-				System.out.println("Malformed ml!");
-				return line.length();
-			}
-			line = line.substring(idx3 + 1);
-			idx = line.indexOf('<');
-		}
-		return len + line.length();
 	}
 
 	public static void loadDB(FilesDB db) {
