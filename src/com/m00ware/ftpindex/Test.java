@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 import com.m00ware.ftpindex.indexer.*;
-import com.m00ware.ftpindex.raw2.RawFilesDB2;
+import com.m00ware.ftpindex.raw.RawFilesDB;
 import com.m00ware.ftpindex.scanner.*;
 import com.m00ware.ftpindex.search.*;
 import com.m00ware.ftpindex.web.WebBackEnd;
@@ -108,7 +108,7 @@ public class Test {
 	}
 
 	public static void main6(String[] args) throws IOException {
-		RawFilesDB2 db = new RawFilesDB2(new File("blop2-test.mdb"));
+		RawFilesDB db = new RawFilesDB(new File("blop2-test.mdb"));
 		db.setUnusableVacantSpaceThreshold(3);
 		db.init();
 		dumpDB(db);
@@ -126,7 +126,7 @@ public class Test {
 	}
 
 	public static void main/* 7 */(String[] args) throws IOException {
-		RawFilesDB2 db = new RawFilesDB2(new File("blop21.mdb"));
+		RawFilesDB db = new RawFilesDB(new File("blop21.mdb"));
 		PingerScheduler ps = new PingerScheduler(db);
 		db.init();
 		db.setUnusableVacantSpaceThreshold(3);
@@ -149,7 +149,7 @@ public class Test {
 
 	public static void main8(String[] args) throws IOException {
 
-		RawFilesDB2 db = new RawFilesDB2(new File("blop2.mdb"));
+		RawFilesDB db = new RawFilesDB(new File("blop2.mdb"));
 		db.setUnusableVacantSpaceThreshold(3);
 		db.init();
 		loadDB(db);
@@ -169,7 +169,7 @@ public class Test {
 	}
 
 	public static void main9(String[] args) throws IOException {
-		RawFilesDB2 db = new RawFilesDB2(new File("blop2.mdb"));
+		RawFilesDB db = new RawFilesDB(new File("blop2.mdb"));
 		db.init();
 		BasicSearchIndex bsi = new BasicSearchIndex(db);
 		System.out.println("Begin search...");
@@ -241,7 +241,7 @@ public class Test {
 	public static long blackhole;
 
 	public static void main11(String[] args) throws IOException {
-		RawFilesDB2 db = new RawFilesDB2(new File("blop2-testSearch.mdb"));
+		RawFilesDB db = new RawFilesDB(new File("blop2-testSearch.mdb"));
 		db.setUnusableVacantSpaceThreshold(3);
 		db.init();
 		long t = System.currentTimeMillis();

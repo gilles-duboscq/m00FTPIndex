@@ -1,4 +1,4 @@
-package com.m00ware.ftpindex.raw2;
+package com.m00ware.ftpindex.raw;
 
 public class Fixup
 {

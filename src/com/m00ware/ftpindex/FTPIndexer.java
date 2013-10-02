@@ -5,7 +5,7 @@ import java.io.File;
 import java.net.*;
 
 import com.m00ware.ftpindex.indexer.IndexerScheduler;
-import com.m00ware.ftpindex.raw2.RawFilesDB2;
+import com.m00ware.ftpindex.raw.RawFilesDB;
 import com.m00ware.ftpindex.scanner.*;
 import com.m00ware.ftpindex.web.WebBackEnd;
 
@@ -22,7 +22,7 @@ public class FTPIndexer {
 	public static void main(String[] args) throws IOException {
 		System.setProperty("dns.servers", "160.228.152.4");
 		System.setProperty("dns.search", "rez-gif.supelec.fr");
-		RawFilesDB2 db = new RawFilesDB2(new File("blaaaaa.mdb"));
+		RawFilesDB db = new RawFilesDB(new File("blaaaaa.mdb"));
 		PingerScheduler ps = new PingerScheduler(db);
 		db.init();
 		db.setUnusableVacantSpaceThreshold(3);

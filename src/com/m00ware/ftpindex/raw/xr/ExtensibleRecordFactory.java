@@ -1,4 +1,4 @@
-package com.m00ware.ftpindex.raw2.xr;
+package com.m00ware.ftpindex.raw.xr;
 
 import java.nio.ByteBuffer;
 

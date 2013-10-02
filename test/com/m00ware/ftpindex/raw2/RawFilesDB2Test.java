@@ -12,6 +12,7 @@ import com.m00ware.ftpindex.File;
 import com.m00ware.ftpindex.FilesDB;
 import com.m00ware.ftpindex.Node;
 import com.m00ware.ftpindex.Node.NodeType;
+import com.m00ware.ftpindex.raw.RawFilesDB;
 
 
 /**
@@ -29,7 +30,7 @@ public class RawFilesDB2Test
 		if(dbFile.exists())
 			dbFile.delete();
 
-		RawFilesDB2 db = new RawFilesDB2(dbFile);
+		RawFilesDB db = new RawFilesDB(dbFile);
 		db.init();
 		db.setUnusableVacantSpaceThreshold(0);
 		dbFile.deleteOnExit();
@@ -121,7 +122,7 @@ public class RawFilesDB2Test
 		System.out.println("Closing db...");
 		db.shutdown();
 		System.out.println("Re-openning...");
-		db = new RawFilesDB2(dbFile);
+		db = new RawFilesDB(dbFile);
 		db.init();
 		db.setUnusableVacantSpaceThreshold(0);
 		System.out.println("Resulting Tree : ");

@@ -1,4 +1,4 @@
-package com.m00ware.ftpindex.raw2;
+package com.m00ware.ftpindex.raw;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import com.m00ware.ftpindex.search.CachingSearchIndex;
  */
 public class RawSearchIndex extends CachingSearchIndex
 {
-	private RawFilesDB2 rawDb;
+	private RawFilesDB rawDb;
 
-	public RawSearchIndex(RawFilesDB2 rawDb)
+	public RawSearchIndex(RawFilesDB rawDb)
 	{
 		super();
 		this.rawDb = rawDb;

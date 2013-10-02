@@ -1,8 +1,8 @@
-package com.m00ware.ftpindex.raw2;
+package com.m00ware.ftpindex.raw;
 
 import java.nio.ByteBuffer;
 
-import com.m00ware.ftpindex.raw2.xr.ExtensibleRecord;
+import com.m00ware.ftpindex.raw.xr.ExtensibleRecord;
 
 /**
  * @author Wooden

@@ -1,4 +1,4 @@
-package com.m00ware.ftpindex.raw2;
+package com.m00ware.ftpindex.raw;
 
 import java.io.*;
 import java.lang.ref.SoftReference;
@@ -16,13 +16,13 @@ import com.m00ware.ftpindex.*;
 import com.m00ware.ftpindex.Node.NodeType;
 import com.m00ware.ftpindex.File;
 import com.m00ware.ftpindex.indexer.IndexerScheduler;
-import com.m00ware.ftpindex.raw2.xr.ExtensibleRecord;
+import com.m00ware.ftpindex.raw.xr.ExtensibleRecord;
 import com.m00ware.ftpindex.search.*;
 
 /**
  * @author Wooden TODO add updateFTP event
  */
-public class RawFilesDB2 implements FilesDB, EmbeddedObjectsDB {
+public class RawFilesDB implements FilesDB, EmbeddedObjectsDB {
 	private static final int MAGIC = 0xf112babe;
 	private static final byte TYPE_FILE = 0x00;
 	private static final byte TYPE_DIRECTORY = 0x01;
@@ -66,7 +66,7 @@ public class RawFilesDB2 implements FilesDB, EmbeddedObjectsDB {
 	private RawSearchIndex search;
 	private Resolver dnsResolver;
 
-	public RawFilesDB2(java.io.File dbFile) {
+	public RawFilesDB(java.io.File dbFile) {
 		this.dbFile = dbFile;
 		this.ftps = Collections.synchronizedList(new LinkedList<FTP>());
 		this.listeners = Collections
@@ -822,7 +822,7 @@ public class RawFilesDB2 implements FilesDB, EmbeddedObjectsDB {
 		System.out.println("Updating search buckets for " + ftp);
 		long t = System.currentTimeMillis();
 		try {
-			RawFilesDB2.this.updateFTPSearchBuckets(ftp);
+			RawFilesDB.this.updateFTPSearchBuckets(ftp);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
