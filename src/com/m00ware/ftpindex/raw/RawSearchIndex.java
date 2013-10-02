@@ -7,22 +7,18 @@ import com.m00ware.ftpindex.search.CachingSearchIndex;
 
 /**
  * @author Wooden
- *
+ * 
  */
-public class RawSearchIndex extends CachingSearchIndex
-{
-	private RawFilesDB rawDb;
+public class RawSearchIndex extends CachingSearchIndex {
+    private RawFilesDB rawDb;
 
-	public RawSearchIndex(RawFilesDB rawDb)
-	{
-		super();
-		this.rawDb = rawDb;
-	}
+    public RawSearchIndex(RawFilesDB rawDb) {
+        super();
+        this.rawDb = rawDb;
+    }
 
-	@Override
-	protected List<Node> doSearch(List<String> search)
-	{
-		return this.rawDb.search(search);
-	}
-
+    @Override
+    protected List<Node> doSearch(List<String> search) {
+        return this.rawDb.search(search);
+    }
 }

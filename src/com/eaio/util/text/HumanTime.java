@@ -29,19 +29,16 @@ import java.util.Iterator;
 
 /**
  * HumanTime parses and formats time deltas for easier reading by humans. It can format time information without losing
- * information but its main purpose is to generate more easily understood approximations.
- * <h3>Using HumanTime</h3>
+ * information but its main purpose is to generate more easily understood approximations. <h3>Using HumanTime</h3>
  * <p>
- * Use HumanTime by creating an instance that contains the time delta ({@link HumanTime#HumanTime(long)}), create an
- * empty instance through ({@link HumanTime#HumanTime()}) and set the delta using the {@link #y()}, {@link #d()},
- * {@link #h()}, {@link #s()} and {@link #ms()} methods or parse a {@link CharSequence} representation ({@link #eval(CharSequence)}).
- * Parsing ignores whitespace and is case insensitive.
+ * Use HumanTime by creating an instance that contains the time delta ({@link HumanTime#HumanTime(long)}), create an empty instance through (
+ * {@link HumanTime#HumanTime()}) and set the delta using the {@link #y()}, {@link #d()}, {@link #h()}, {@link #s()} and {@link #ms()} methods or parse a
+ * {@link CharSequence} representation ({@link #eval(CharSequence)}). Parsing ignores whitespace and is case insensitive.
  * </p>
  * <h3>HumanTime format</h3>
  * <p>
- * HumanTime will format time deltas in years ("y"), days ("d"), hours ("h"), minutes ("m"), seconds ("s") and
- * milliseconds ("ms"), separated by a blank character. For approximate representations, the time delta will be round up
- * or down if necessary.
+ * HumanTime will format time deltas in years ("y"), days ("d"), hours ("h"), minutes ("m"), seconds ("s") and milliseconds ("ms"), separated by a blank
+ * character. For approximate representations, the time delta will be round up or down if necessary.
  * </p>
  * <h3>HumanTime examples</h3>
  * <ul>
@@ -54,8 +51,8 @@ import java.util.Iterator;
  * <ul>
  * <li>The time delta can only be increased.</li>
  * <li>Instances of this class are thread safe.</li>
- * <li>Getters using the Java Beans naming conventions are provided for use in environments like JSP or with expression
- * languages like OGNL. See {@link #getApproximately()} and {@link #getExactly()}.</li>
+ * <li>Getters using the Java Beans naming conventions are provided for use in environments like JSP or with expression languages like OGNL. See
+ * {@link #getApproximately()} and {@link #getExactly()}.</li>
  * <li>To keep things simple, a year consists of 365 days.</li>
  * </ul>
  * 
@@ -63,7 +60,8 @@ import java.util.Iterator;
  * @version $Id: HumanTime.java 323 2008-10-08 19:06:22Z Johann $
  * @see #eval(CharSequence)
  * @see #approximately(CharSequence)
- * @see <a href="http://johannburkard.de/blog/programming/java/date-formatting-parsing-humans-humantime.html">Date Formatting and Parsing for Humans in Java with HumanTime</a>
+ * @see <a href="http://johannburkard.de/blog/programming/java/date-formatting-parsing-humans-humantime.html">Date Formatting and Parsing for Humans in Java
+ *      with HumanTime</a>
  */
 public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneable {
 
@@ -107,39 +105,41 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
      */
     static enum State {
 
-        NUMBER, IGNORED, UNIT
+        NUMBER,
+        IGNORED,
+        UNIT
 
     }
 
     static State getState(char c) {
         State out;
         switch (c) {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                out = State.NUMBER;
-                break;
-            case 's':
-            case 'm':
-            case 'h':
-            case 'd':
-            case 'y':
-            case 'S':
-            case 'M':
-            case 'H':
-            case 'D':
-            case 'Y':
-                out = State.UNIT;
-                break;
-            default:
-                out = State.IGNORED;
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            out = State.NUMBER;
+            break;
+        case 's':
+        case 'm':
+        case 'h':
+        case 'd':
+        case 'y':
+        case 'S':
+        case 'M':
+        case 'H':
+        case 'D':
+        case 'Y':
+            out = State.UNIT;
+            break;
+        default:
+            out = State.IGNORED;
         }
         return out;
     }
@@ -199,8 +199,7 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
             if (oldState != newState) {
                 if (oldState == State.NUMBER && (newState == State.IGNORED || newState == State.UNIT)) {
                     num = Integer.parseInt(s.subSequence(start, end).toString());
-                }
-                else if (oldState == State.UNIT && (newState == State.IGNORED || newState == State.NUMBER)) {
+                } else if (oldState == State.UNIT && (newState == State.IGNORED || newState == State.NUMBER)) {
                     out.nTimes(s.subSequence(start, end).toString(), num);
                     num = 0;
                 }
@@ -292,20 +291,15 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
     private void nTimes(String unit, int n) {
         if ("ms".equalsIgnoreCase(unit)) {
             ms(n);
-        }
-        else if ("s".equalsIgnoreCase(unit)) {
+        } else if ("s".equalsIgnoreCase(unit)) {
             s(n);
-        }
-        else if ("m".equalsIgnoreCase(unit)) {
+        } else if ("m".equalsIgnoreCase(unit)) {
             m(n);
-        }
-        else if ("h".equalsIgnoreCase(unit)) {
+        } else if ("h".equalsIgnoreCase(unit)) {
             h(n);
-        }
-        else if ("d".equalsIgnoreCase(unit)) {
+        } else if ("d".equalsIgnoreCase(unit)) {
             d(n);
-        }
-        else if ("y".equalsIgnoreCase(unit)) {
+        } else if ("y".equalsIgnoreCase(unit)) {
             y(n);
         }
     }
@@ -522,8 +516,7 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
                 a.append('m');
                 a.append('s');
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             // What were they thinking...
         }
         return a;
@@ -561,8 +554,7 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
                 ++parts;
                 rounded = true;
                 prependBlank = true;
-            }
-            else if (d >= YEAR) {
+            } else if (d >= YEAR) {
                 a.append(floor(d, YEAR));
                 a.append(' ');
                 a.append('y');
@@ -585,8 +577,7 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
                     ++parts;
                     rounded = true;
                     prependBlank = true;
-                }
-                else if (d >= DAY) {
+                } else if (d >= DAY) {
                     if (prependBlank) {
                         a.append(' ');
                     }
@@ -612,8 +603,7 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
                         ++parts;
                         rounded = true;
                         prependBlank = true;
-                    }
-                    else if (d >= HOUR && !rounded) {
+                    } else if (d >= HOUR && !rounded) {
                         if (prependBlank) {
                             a.append(' ');
                         }
@@ -639,8 +629,7 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
                             ++parts;
                             rounded = true;
                             prependBlank = true;
-                        }
-                        else if (d >= MINUTE && !rounded) {
+                        } else if (d >= MINUTE && !rounded) {
                             if (prependBlank) {
                                 a.append(' ');
                             }
@@ -666,8 +655,7 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
                                 ++parts;
                                 rounded = true;
                                 prependBlank = true;
-                            }
-                            else if (d >= SECOND && !rounded) {
+                            } else if (d >= SECOND && !rounded) {
                                 if (prependBlank) {
                                     a.append(' ');
                                 }
@@ -699,8 +687,7 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
 
                 }
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             // What were they thinking...
         }
 
